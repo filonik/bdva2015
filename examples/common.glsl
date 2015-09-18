@@ -17,11 +17,7 @@
 #define GLANCE_TESS_LEVEL_OUTER 128
 #endif
 
+#include "colors.glsl"
 #include "math.glsl"
-
-vec4 colorFromOrdinal(int i)
-{
-    return vec4(((i >> 0) & 1), ((i >> 1) & 1), ((i >> 2) & 1), 1.0);
-}
 
 #endif
