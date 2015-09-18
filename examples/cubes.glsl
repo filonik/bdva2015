@@ -143,20 +143,7 @@ const int cube3_cube2_faces[cube3_cube2_face_count][cube2_vertex_count] = int[][
 
 void make_vertex(vec4 position, vec4 tex_coord, vec4 color, mat4 transform);
 
-mat3 cotangent_basis(vec4 p0, vec4 p1, vec4 p2)
-{
-    vec3 dp1 = normalize((p1 - p0).xyz);
-    vec3 dp2 = normalize((p2 - p0).xyz);
-    
-    vec3 n = cross(dp1, dp2);
-    vec3 t = cross(dp2, n);
-    vec3 b = cross(n, dp1);
-    
-    return mat3(t,b,n);
-}
-
-void make_cube0_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
-{
+void make_cube0_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube0_cube0_face_count; ++i)
     {
         const int face[cube0_vertex_count] = cube0_cube0_faces[i];
@@ -168,8 +155,7 @@ void make_cube0_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube1_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
-{
+void make_cube1_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube1_cube0_face_count; ++i)
     {
         const int face[cube0_vertex_count] = cube1_cube0_faces[i];
@@ -181,8 +167,7 @@ void make_cube1_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube2_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
-{
+void make_cube2_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube2_cube0_face_count; ++i)
     {
         const int face[cube0_vertex_count] = cube2_cube0_faces[i];
@@ -194,8 +179,7 @@ void make_cube2_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube3_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
-{
+void make_cube3_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube3_cube0_face_count; ++i)
     {
         const int face[cube0_vertex_count] = cube3_cube0_faces[i];
@@ -209,8 +193,7 @@ void make_cube3_cube0(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
 
 void make_cube0_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {}
 
-void make_cube1_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) 
-{
+void make_cube1_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube1_cube1_face_count; ++i)
     {
         const int face[cube1_vertex_count] = cube1_cube1_faces[i];
@@ -224,8 +207,7 @@ void make_cube1_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube2_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) 
-{
+void make_cube2_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube2_cube1_face_count; ++i)
     {
         const int face[cube1_vertex_count] = cube2_cube1_faces[i];
@@ -239,8 +221,7 @@ void make_cube2_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube3_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) 
-{
+void make_cube3_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube3_cube1_face_count; ++i)
     {
         const int face[cube1_vertex_count] = cube3_cube1_faces[i];
@@ -254,8 +235,10 @@ void make_cube3_cube1(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube2_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
-{
+void make_cube0_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {}
+void make_cube1_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {}
+
+void make_cube2_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube2_cube2_face_count; ++i)
     {
         const int face[cube2_vertex_count] = cube2_cube2_faces[i];
@@ -265,7 +248,7 @@ void make_cube2_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
         vec4 p2 = transform * cube2_positions[face[2]];
         vec4 p3 = transform * cube2_positions[face[3]];
         
-        mat4 dual_transform = mat4(cotangent_basis(p0, p1, p2));
+        mat4 dual_transform = mat4(basis_from_points(p0.xyz, p1.xyz, p2.xyz));
         
         make_vertex(position + p0, tex_coord + vec4(0,0,0,0), color, transform);
         make_vertex(position + p1, tex_coord + vec4(1,0,0,0), color, transform);
@@ -275,8 +258,7 @@ void make_cube2_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
     }
 }
 
-void make_cube3_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
-{
+void make_cube3_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform) {
     for(int i=0; i<cube3_cube2_face_count; ++i)
     {
         const int face[cube2_vertex_count] = cube3_cube2_faces[i];
@@ -286,7 +268,7 @@ void make_cube3_cube2(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
         vec4 p2 = transform * cube3_positions[face[2]];
         vec4 p3 = transform * cube3_positions[face[3]];
         
-        mat4 dual_transform = mat4(cotangent_basis(p0, p1, p2));
+        mat4 dual_transform = mat4(basis_from_points(p0.xyz, p1.xyz, p2.xyz));
         
         make_vertex(position + p0, tex_coord + vec4(0,0,0,0), color, transform);
         make_vertex(position + p1, tex_coord + vec4(1,0,0,0), color, transform);
