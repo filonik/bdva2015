@@ -12,6 +12,8 @@ in DebugData { vec3 triangle_distance; } gs_debug;
 uniform Material materials[GLANCE_MATERIAL_COUNT];
 uniform Light lights[GLANCE_LIGHT_COUNT];
 
+uniform samplerCube background;
+
 out vec4 frag_color;
 
 const float Air = 1.0;
@@ -24,10 +26,10 @@ const float R0 = ((Air - Glass) * (Air - Glass)) / ((Air + Glass) * (Air + Glass
 vec4 get_fresnel_color(Material material, vec4 tex_coord, vec4 color)
 {
     vec3 reflection_tex_coord = reflect(E, N);
-    vec3 reflection_color = texture(environment, normalize(reflection_tex_coord)).rgb;
+    vec3 reflection_color = texture(background, normalize(reflection_tex_coord)).rgb;
     
     vec3 refraction_tex_coord = refract(E, N, Eta);
-    vec3 refraction_color = texture(environment, normalize(refraction_tex_coord)).rgb; 
+    vec3 refraction_color = texture(background, normalize(refraction_tex_coord)).rgb; 
 
     // see http://en.wikipedia.org/wiki/Schlick%27s_approximation
     float fresnel = R0 + (1.0 - R0) * pow((1.0 - dot(-E, N)), 5.0);
