@@ -1,0 +1,17 @@
+#version 440 core
+
+layout(vertices=4) out;
+
+#include "common.glsl"
+
+uniform int inner_level = GLANCE_TESS_LEVEL_INNER;
+uniform int outer_level = GLANCE_TESS_LEVEL_OUTER;
+
+void main()
+{
+    if (gl_InvocationID == 0)
+    {
+        gl_TessLevelInner[0] = gl_TessLevelInner[1] = float(inner_level);
+        gl_TessLevelOuter[0] = gl_TessLevelOuter[1] = gl_TessLevelOuter[2] = gl_TessLevelOuter[3] =  float(outer_level);
+    }
+}

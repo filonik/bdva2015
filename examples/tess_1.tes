@@ -1,0 +1,40 @@
+#version 440 core
+
+layout(quads, equal_spacing, ccw) in;
+
+out VertexData { vec4 position; vec4 tex_coord; vec4 color; mat4 transform; } tes;
+
+#include "common.glsl"
+#include "uniforms.glsl"
+
+const float R = 1.0;
+
+vec3 surface_function(vec2 coord)
+{
+    float u = M_PI * coord.s, v = M_PI/2 * coord.t;
+    
+    float x = R * sin(u)*cos(v);
+    float y = R * sin(v);
+    float z = R * cos(u)*cos(v);
+    
+    return vec3(x, y, z);
+}
+
+void make_vertex(vec4 position, vec4 tex_coord, vec4 color, mat4 transform)
+{
+    tes.position = position;
+    tes.tex_coord = tex_coord;
+    tes.color = color;
+    tes.transform = transform;
+    gl_Position = view_projection * tes.position;
+}
+
+void main()
+{
+    vec2 coord = 2.0*gl_TessCoord.st - 1.0;
+    
+    vec4 position = vec4(surface_function(coord), 1.0);
+    vec4 tex_coord = vec4(gl_TessCoord.st, 0.0, 1.0);
+
+    make_vertex(position, tex_coord, vec4(1.0), mat4(1.0));
+}

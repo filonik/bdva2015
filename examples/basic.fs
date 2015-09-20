@@ -22,6 +22,12 @@ float edge_intensity(vec3 distance) {
 
 void main()
 {
+#if GLANCE_MATERIAL_SIDES == 2
+    int i = gl_FrontFacing? 0: 1;
+#else
+    int i = 0;
+#endif
+    
     frag_color = get_material_component(materials[i], gs.tex_coord, gs.color);
 
 #if defined(GLANCE_DEBUG)
