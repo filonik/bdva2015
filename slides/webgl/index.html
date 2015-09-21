@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>WebGL :: @Xavier_Ho</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/solarized-dark.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    <section id="slides">
+
+      <article>
+        <p class="row5 bold white">WebGL</p>
+        <p class="row7 small">Graphics programming for the web</p>
+        <p class="row9 small bold"><a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
+      </article>
+
+      <article>
+        <p class="row2"><img src="img/webgl_logo.png"></p>
+        <p class="row6 small white"><em>WebGL is a Javascript API for rendering interactive 3D computer graphics and 2D graphics within any compatible web browser without the use of plug-ins. It is designed and maintained by Khronos Group.</em></p>
+      </article>
+
+      <article data-background="white">
+        <p class="row2 white"><img src="img/webgl_stats.png"></p>
+        <p class="row8 textright grey fine">webglstats.com</p>
+      </article>
+
+      <article data-background="white">
+        <p class="row2 white"><img src="img/caniuse_webgl.png"></p>
+        <p class="rowB textright grey fine">caniuse.com</p>
+      </article>
+
+      <article data-background="white">
+      <p class="row2 black">Try yours: <a href="https://get.webgl.org">get.webgl.org</a></p>
+
+        <table class="row5">
+          <tr class="black">
+            <td width="400">There are</td>
+          </tr>
+          <tr class="big bold">
+            <td width="400">&gt;1 billion</td>
+          </tr>
+          <tr class="black">
+            <td>devices that support WebGL.</td>
+          </tr>
+        </table>
+
+      </article>
+
+      <article>
+        <p class="row1 bold white">WebGL Javascript API ...</p>
+        <ul class="row3 small">
+          <li>Implements closely to OpenGL ES 2</li>
+          <li>Draws to HTML5 &lt;canvas&gt; element.</li>
+          <li>Provides access to low-level graphics concepts: buffers, primitives, shaders and textures</li>
+          <li>GPU Accelerated - WebGL is fast!</li>
+          <li>Works with all other HTML5 standards and web technologies.</li>
+          <li>Does not require a browser plugin; WebGL "just works".</li>
+        </ul>
+      </article>
+
+      <article>
+        <p class="row1 bold white">... is very verbose</p>
+        <p class="row3"><img src="img/webgl_calls.png"></p>
+      </article>
+
+      <article>
+        <p class="row2 bold white">WebGL Libraries</p>
+        <p class="row4 small">three.js (<a href="http://threejs.org/">threejs.org</a>)</p>
+        <p class="row5 small">sceneJS (<a href="http://scenejs.org/">scenejs.org</a>)</p>
+        <p class="row6 small">Babylon.js (<a href="http://www.babylonjs.com/">babylonjs.com</a>)</p>
+        <p class="row7 small">CopperLicht (<a href="http://www.ambiera.com/copperlicht/index.html">ambiera.com/copperlicht</a>)</p>
+        <p class="row8 small">TWGL (<a href="http://twgljs.org/">twgljs.org</a>)</p>
+        <p class="row9 small">... and more</p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="javascript">
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"&gt;</script></pre>
+        <p class="row2 bold white">three.js</p>
+
+        <ul class="row5 small">
+          <li>High-level 3D library</li>
+          <li>Extremely popular (21k+ favs on Github)</li>
+          <li>Well documented and has good community support</li>
+          <li>Cuts down boilerplates while maintaining flexibility</li>
+        </ul>
+      </article>
+
+      <article>
+        <p class="row5 white bold">Let's dive in.</p>
+        <p class="row7 fine">Just a few steps to get started.</p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="javascript">
+var renderer = new THREE.WebGLRenderer();
+var width = window.innerWidth;
+var height = window.innerHeight;
+
+renderer.setSize( width, height );
+
+document.body.appendChild( renderer.domElement );</pre>
+        <p class="row2 bold white">1. Setup render context</p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="javascript">
+var scene = new THREE.Scene();
+
+var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+var material = new THREE.MeshBasicMaterial( { color: 0xd5631d } );
+var object = new THREE.Mesh( geometry, material );
+scene.add( object );
+
+var camera = new THREE.PerspectiveCamera( 55, width / height, 1, 1000 );
+camera.position.z = 3;</pre>
+        <p class="row2 bold white">2. Create geometry and camera</p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="javascript">
+function draw () {
+  window.requestAnimationFrame( draw );
+  renderer.render( scene, camera );
+}
+draw();</pre>
+        <p class="row2 bold white">3. Start rendering</p>
+      </article>
+
+      <article>
+        <p class="full" id="basic_example"></p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="javascript">
+var light = new THREE.PointLight( 0xffffff, 1 );
+light.position.set( 10, 10, 10 );
+scene.add( light );</pre>
+
+        <pre class="row6 fine" data-language="javascript">
+var material = new THREE.MeshPhongMaterial( { color: 0xd5631d } );</pre>
+        <p class="row2 bold white">4. Light up the world</p>
+      </article>
+
+      <article>
+        <p class="full" id="basic_lighting_example"></p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="javascript">
+var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+var material = new THREE.MeshLambertMaterial({
+  map: THREE.ImageUtils.loadTexture('img/mars_1k_color.jpg')
+});
+var object = new THREE.Mesh( geometry, material );
+scene.add( object );</pre>
+        <p class="row2 bold white">5. Apply texture mapping</p>
+      </article>
+
+      <article>
+        <p class="full" id="basic_texturing_example"></p>
+      </article>
+
+      <article>
+        <p class="row5 bold white">But what about shaders?</p>
+        <p class="row7 fine">ThreeJS makes them easy to use!</p>
+      </article>
+
+      <article>
+      <pre class="row3 fine" data-language="javascript">
+var vertexShader = document.getElementById('basic_shader_vertex').textContent;
+var fragmentShader = document.getElementById('basic_shader_fragment').textContent;
+var material = new THREE.ShaderMaterial({
+  uniforms: {
+    map: { type: 't', value: THREE.ImageUtils.loadTexture('img/mars_1k_color.jpg') }
+  },
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader
+});</pre>
+        <p class="row2 bold white">1. THREE.ShaderMaterial</p>
+      </article>
+
+      <article>
+        <pre class="row2 fine" data-language="c">
+varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}</pre>
+        <p class="row1 bold white">2. Texturing (vertex)</p>
+
+        <pre class="row7 fine" data-language="c">
+uniform sampler2D map;
+
+varying vec2 vUv;
+
+void main() {
+  gl_FragColor = texture2D(map, vUv);
+}</pre>
+        <p class="row6 bold white">3. Texturing (fragment)</p>
+      </article>
+
+      <article>
+        <p class="full" id="basic_shader_example"></p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="c">
+var material = new THREE.ShaderMaterial({
+  uniforms: {
+    map: { type: 't', value: THREE.ImageUtils.loadTexture('img/mars_1k_color.jpg') },
+    light: { type: 'v3', value: new THREE.Vector3(10, 10, 10) }
+  },
+  vertexShader: vertexShader,
+  fragmentShader: fragmentShader
+});</pre>
+        <p class="row2 bold white">4. Add a light source</p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="c">
+varying vec2 vUv;
+varying vec3 vNormal;
+
+void main() {
+  vUv = uv;
+  vNormal = normalize(normalMatrix * normal);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}</pre>
+        <p class="row2 bold white">5. Surface normals (vertex)</p>
+      </article>
+
+      <article>
+        <pre class="row3 fine" data-language="c">
+uniform sampler2D map;
+uniform vec3 light;
+
+varying vec2 vUv;
+varying vec3 vNormal;
+
+void main() {
+  // Light up Mars
+  vec4 lightPos = viewMatrix * vec4(light, 1.0);
+  float illumination = dot( vNormal, normalize(lightPos.xyz) );
+  vec4 color = texture2D(map, vUv) * clamp(illumination, 0.0, 1.0);
+
+  // Red planet glow
+  float viewFactor = dot( vNormal, vec3(0.0, 0.0, 1.0) );
+  vec3 glow = vec3(0.9, 0.1, 0.2) * (1.0 - viewFactor);
+
+  gl_FragColor = 0.25 * vec4(glow, 1.0) + color;
+}</pre>
+        <p class="row2 bold white">6. Lighting (fragment)</p>
+      </article>
+
+      <article>
+        <p class="full" id="shader_lighting_example"></p>
+      </article>
+
+      <article>
+        <p class="row1 bold white">WebGL GLSL (OpenGL ES 2.0) pre-defined variables</p>
+        <ul class="row4 small">
+          <li>(vertex out) vec4 gl_Position</li>
+          <li>(vertex out) float gl_PointSize</li>
+          <li>(fragment in) vec4 gl_FragCoord​</li>
+          <li>(fragment in) vec2 gl_PointCoord​</li>
+          <li>(fragment out) vec4 gl_FragColor</li>
+        </ul>
+      </article>
+
+      <article>
+        <p class="row1 bold white">ThreeJS pre-defined variables</p>
+        <ul class="row3 small">
+          <li>uniform mat4 modelViewMatrix</li>
+          <li>uniform mat4 projectionMatrix</li>
+          <li>uniform mat4 viewMatrix</li>
+          <li>uniform mat3 normalMatrix</li>
+          <li>uniform vec3 cameraPosition</li>
+          <li>attribute vec3 position</li>
+          <li>attribute vec3 normal</li>
+          <li>attribute vec2 uv</li>
+          <li>attribute vec2 uv2</li>
+        </ul>
+      </article>
+
+      <article>
+        <p class="row5 bold white">Shaders are powerful.</p>
+        <p class="row7 fine">Use 'em. Love 'em. Embrace 'em.</p>
+      </article>
+
+      <article>
+        <img class="row2" src="img/shadertoy.png">
+        <p class="row1 bold white">Shadertoy</p>
+      </article>
+
+      <article>
+        <p class="row5 bold white">What is WebGL being used for?</p>
+        <p class="row7 fine">Real-world applications today.</p>
+      </article>
+
+      <article data-background="#e89423">
+        <img class="row2" src="img/polarsea-1.jpg">
+        <p class="row1 bold black">Web + VR = WebVR</p>
+        <p class="rowB textright black fine">mozvr.com/projects/polarsea</p>
+      </article>
+
+      <article data-background="#e62043">
+        <img class="row2" src="img/timeshift.jpg">
+        <p class="row1 bold black">Games</p>
+        <p class="rowB textright black fine">timeshift165.com</p>
+      </article>
+
+      <article>
+        <img class="row2" src="img/smoke-and-fire.png">
+        <p class="row1 bold small white">Scientific Visualisation</p>
+      </article>
+
+      <article data-background="#aaaaaa">
+        <img class="row2" style="height: 70%" src="img/charizard.png">
+        <p class="row1 bold black">3D printing</p>
+        <p class="rowB textright black fine">thingiverse.com/thing:342381</p>
+      </article>
+
+      <article data-background="#ffffff">
+        <img class="row2" src="img/lego.png">
+        <p class="row1 bold black">Lego</p>
+        <p class="rowC textright black fine">buildwithchrome.com</p>
+      </article>
+
+      <article data-background="#e89423">
+        <p class="row2 bold black">Takeaways</p>
+        <ul class="row4 black small">
+          <li>WebGL supports over 1 billion devices today.</li>
+          <li>ThreeJS takes less than 10 lines of Javascript to get started.</li>
+          <li>Shaders are awesome.</li>
+          <li>Infinite application opportunities.</li>
+        </ul>
+      </article>
+
+      <article data-background="#e89423">
+        <img class="row2" src="img/webgl2.png">
+        <p class="row1 bold black">Upcoming: WebGL 2.0 Draft</p>
+      </article>
+
+      <article data-background="#ffffff">
+        <p class="row5 bold black">Questions, comments? <a href="https://twitter.com/Xavier_Ho">@Xavier_Ho</a></p>
+      </article>
+
+    </section>
+
+    <script src="js/jquery-1.8.0.min.js"></script>
+    <script src="js/jquery.color.js"></script>
+    <script src="js/present.js"></script>
+    <script src="js/rainbow/rainbow.min.js"></script>
+    <script src="js/rainbow/generic.js"></script>
+    <script src="js/rainbow/html.js"></script>
+    <script src="js/rainbow/css.js"></script>
+    <script src="js/rainbow/javascript.js"></script>
+    <script src="js/three.min.js"></script>
+    <script src="js/OrbitControls.js"></script>
+
+    <!-- Basic example -->
+    <script>
+      (function () {
+        var container = document.getElementById( 'basic_example' );
+        var renderer = new THREE.WebGLRenderer();
+        var width = container.offsetWidth;
+        var height = container.offsetHeight;
+        var darkOrange = 0xd5631d;
+
+        var scene = new THREE.Scene();
+
+        var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+        var material = new THREE.MeshBasicMaterial( { color: darkOrange } );
+        var object = new THREE.Mesh( geometry, material );
+        scene.add( object );
+
+        var camera = new THREE.PerspectiveCamera( 55, width / height, 1, 1000 );
+        camera.position.z = 3;
+
+        var controls = new THREE.OrbitControls( camera );
+
+        renderer.setSize( width, height );
+
+        function draw () {
+          window.requestAnimationFrame( draw );
+          renderer.render( scene, camera );
+        }
+        draw();
+
+        container.appendChild( renderer.domElement );
+      }());
+    </script>
+
+    <!-- Basic lighting example -->
+    <script>
+      (function () {
+        var container = document.getElementById( 'basic_lighting_example' );
+        var renderer = new THREE.WebGLRenderer();
+        var width = container.offsetWidth;
+        var height = container.offsetHeight;
+        var darkOrange = 0xd5631d;
+
+        var scene = new THREE.Scene();
+
+        var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+        var material = new THREE.MeshPhongMaterial( { color: darkOrange } );
+        var object = new THREE.Mesh( geometry, material );
+        scene.add( object );
+
+        var light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 10, 10, 10 );
+        scene.add( light );
+
+        var camera = new THREE.PerspectiveCamera( 55, width / height, 1, 1000 );
+        camera.position.z = 3;
+
+        var controls = new THREE.OrbitControls( camera );
+
+        renderer.setSize( width, height );
+
+        function draw () {
+          window.requestAnimationFrame( draw );
+          renderer.render( scene, camera );
+        }
+        draw();
+
+        container.appendChild( renderer.domElement );
+      }());
+    </script>
+
+    <!-- Basic texturing example -->
+    <script>
+      (function () {
+        var container = document.getElementById( 'basic_texturing_example' );
+        var renderer = new THREE.WebGLRenderer();
+        var width = container.offsetWidth;
+        var height = container.offsetHeight;
+        var darkOrange = 0xd5631d;
+
+        var scene = new THREE.Scene();
+
+        var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+        var material = new THREE.MeshLambertMaterial({
+          map: THREE.ImageUtils.loadTexture('img/mars_1k_color.jpg')
+        });
+        var object = new THREE.Mesh( geometry, material );
+        scene.add( object );
+
+        var light = new THREE.DirectionalLight( 0xffffff, 1 );
+        light.position.set( 10, 10, 10 );
+        scene.add( light );
+
+        var camera = new THREE.PerspectiveCamera( 55, width / height, 1, 1000 );
+        camera.position.z = 3;
+
+        var controls = new THREE.OrbitControls( camera );
+
+        renderer.setSize( width, height );
+
+        function draw () {
+          window.requestAnimationFrame( draw );
+          renderer.render( scene, camera );
+        }
+        draw();
+
+        container.appendChild( renderer.domElement );
+      }());
+    </script>
+
+    <!-- Basic shader example -->
+    <script id="basic_shader_vertex" type="x-shader/x-vertex">
+      varying vec2 vUv;
+
+      void main() {
+        vUv = uv;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    </script>
+
+    <script id="basic_shader_fragment" type="x-shader/x-vertex">
+      uniform sampler2D map;
+
+      varying vec2 vUv;
+
+      void main() {
+        gl_FragColor = texture2D(map, vUv);
+      }
+    </script>
+
+    <script>
+      (function () {
+        var container = document.getElementById( 'basic_shader_example' );
+        var renderer = new THREE.WebGLRenderer();
+        var width = container.offsetWidth;
+        var height = container.offsetHeight;
+
+        var scene = new THREE.Scene();
+
+        var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+        var vertexShader = document.getElementById('basic_shader_vertex').textContent;
+        var fragmentShader = document.getElementById('basic_shader_fragment').textContent;
+        var material = new THREE.ShaderMaterial({
+          uniforms: {
+            map: { type: 't', value: THREE.ImageUtils.loadTexture('img/mars_1k_color.jpg') }
+          },
+          vertexShader: vertexShader,
+          fragmentShader: fragmentShader
+        });
+        var object = new THREE.Mesh( geometry, material );
+        scene.add( object );
+
+        var camera = new THREE.PerspectiveCamera( 55, width / height, 1, 1000 );
+        camera.position.z = 3;
+
+        var controls = new THREE.OrbitControls( camera );
+
+        renderer.setSize( width, height );
+
+        function draw () {
+          window.requestAnimationFrame( draw );
+          renderer.render( scene, camera );
+        }
+        draw();
+
+        container.appendChild( renderer.domElement );
+      }());
+    </script>
+
+    <!-- Shader lighting example -->
+    <script id="shader_lighting_vertex" type="x-shader/x-vertex">
+      varying vec2 vUv;
+      varying vec3 vNormal;
+
+      void main() {
+        vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    </script>
+
+    <script id="shader_lighting_fragment" type="x-shader/x-vertex">
+      uniform sampler2D map;
+      uniform vec3 light;
+
+      varying vec2 vUv;
+      varying vec3 vNormal;
+
+      void main() {
+        vec4 lightPos = viewMatrix * vec4(light, 1.0);
+        float illumination = dot( vNormal, normalize(lightPos.xyz) );
+        vec4 color = texture2D(map, vUv) * clamp(illumination, 0.0, 1.0);
+
+        float viewFactor = dot( vNormal, vec3(0.0, 0.0, 1.0) );
+        vec3 glow = vec3(0.9, 0.1, 0.2) * (1.0 - viewFactor);
+
+        gl_FragColor = 0.25 * vec4(glow, 1.0) + color;
+      }
+    </script>
+
+    <script>
+      (function () {
+        var container = document.getElementById( 'shader_lighting_example' );
+        var renderer = new THREE.WebGLRenderer();
+        var width = container.offsetWidth;
+        var height = container.offsetHeight;
+
+        var scene = new THREE.Scene();
+
+        var geometry = new THREE.SphereGeometry( 1, 32, 32 );
+        var vertexShader = document.getElementById('shader_lighting_vertex').textContent;
+        var fragmentShader = document.getElementById('shader_lighting_fragment').textContent;
+        var material = new THREE.ShaderMaterial({
+          uniforms: {
+            map: { type: 't', value: THREE.ImageUtils.loadTexture('img/mars_1k_color.jpg') },
+            light: { type: 'v3', value: new THREE.Vector3(10, 10, 10) }
+          },
+          vertexShader: vertexShader,
+          fragmentShader: fragmentShader
+        });
+        var object = new THREE.Mesh( geometry, material );
+        scene.add( object );
+
+        var camera = new THREE.PerspectiveCamera( 55, width / height, 1, 1000 );
+        camera.position.z = 3;
+
+        var controls = new THREE.OrbitControls( camera );
+
+        renderer.setSize( width, height );
+
+        function draw () {
+          window.requestAnimationFrame( draw );
+          renderer.render( scene, camera );
+        }
+        draw();
+
+        container.appendChild( renderer.domElement );
+      }());
+    </script>
+  </body>
+</html>
