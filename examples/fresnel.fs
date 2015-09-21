@@ -23,8 +23,7 @@ const float Eta = Air / Glass;
 // see http://en.wikipedia.org/wiki/Refractive_index Reflectivity
 const float R0 = ((Air - Glass) * (Air - Glass)) / ((Air + Glass) * (Air + Glass));
 
-vec4 get_fresnel_color(Material material, vec4 tex_coord, vec4 color)
-{
+vec4 get_fresnel_color(Material material, vec4 tex_coord, vec4 color) {
     vec3 reflection_tex_coord = reflect(E, N);
     vec3 reflection_color = texture(background, normalize(reflection_tex_coord)).rgb;
     
