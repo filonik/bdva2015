@@ -17,7 +17,7 @@ void init_demo()
 
 	program_demo.compileShaderFromPath("../../part2/noop.vs");
 	program_demo.compileShaderFromPath("../../part2/quad_0.gs");
-	program_demo.compileShaderFromPath("../../part2/basic.fs", {});
+	program_demo.compileShaderFromPath("../../part2/basic.fs", { "-DGLANCE_MATERIAL_AMBIENT_COLOR", "1"  });
 
 	//program_demo.compileShaderFromFile("../shaders/phong.vert", GLSLProgram::VERTEX);
 	//program_demo.compileShaderFromFile("../shaders/phong.frag", GLSLProgram::FRAGMENT);
@@ -39,11 +39,11 @@ void render_demo()
 	program_demo.setUniform("materials[0].colors.specular", 0.9f, 0.5f, 0.3f);
 	program_demo.setUniform("materials[0].colors.emissive", 0.9f, 0.5f, 0.3f);
 
+	glm::mat4 model = glm::mat4(1.0f);
 	glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 0.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f));
 	//glm::mat4 projection = glm::mat4(1.0f);
 	glm::mat4 projection = glm::perspective(90.0f, (GLfloat)800.0f / 600.0f, 0.10f, 1000.0f);
-	program_demo.setUniform("Light.Position", view*glm::vec4(0.0f, 0.0f, 2.0f, 1.0f));
-	glm::mat4 model = glm::mat4(1.0f);
+	
 	glm::mat4 model_view = view * model;
 	glm::mat4 view_projection = projection * view;
 	glm::mat4 model_view_projection = projection*model_view;
