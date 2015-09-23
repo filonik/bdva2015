@@ -74,12 +74,14 @@ int main()
 	// Make the window's context current 
 	glfwMakeContextCurrent(w);
 
+	glfwSwapInterval(1);
+
 	// start GLEW extension handler
-   glewExperimental = GL_TRUE;
-   if (glewInit() != GLEW_OK) {
-      glfwTerminate();
-      return -1;
-   }
+	glewExperimental = GL_TRUE;
+	if (glewInit() != GLEW_OK) {
+		glfwTerminate();
+		return -1;
+	}
 
 	displayOpenGLInfo();
 
