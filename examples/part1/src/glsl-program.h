@@ -10,8 +10,11 @@
 
 #include <string>
 #include <stdexcept>
+#include <vector>
 
 #include <glm/glm.hpp>
+
+#include "mcpp.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -48,6 +51,10 @@ public:
       const std::string &fileName,
       GLSLProgram::GLSLShaderType type)
       throw (GLSLProgramException);
+
+   void compileShaderFromPath(
+	   const std::string& path,
+	   const std::vector<std::string>& arguments = {});
    
    void link()
       throw (GLSLProgramException);

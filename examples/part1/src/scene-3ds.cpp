@@ -165,7 +165,7 @@ void Scene3DS::load3ds(const std::string& filename)
    
    int iFileSize = fileGetInt();
    
-   std::cout << "++ main" << std::endl;
+   //std::cout << "++ main" << std::endl;
    
    bool finished = false;
    while (!finished)
@@ -175,11 +175,11 @@ void Scene3DS::load3ds(const std::string& filename)
       switch (id_chunk)
       {
          case chunk_mesh:
-            std::cout << " ++ mesh" << std::endl;
+            //std::cout << " ++ mesh" << std::endl;
             readMeshChunk();
             break;
          case chunk_keyframer:
-            std::cout << " ++ keyframer" << std::endl;
+            //std::cout << " ++ keyframer" << std::endl;
             // break;
          default:
             // read unknown or yet not implemented chunk
@@ -206,11 +206,11 @@ void Scene3DS::readMeshChunk()
       
 		switch(id_chunk) {
 			case chunk_object:
-            std::cout << "  ++ object ";
+            //std::cout << "  ++ object ";
 				readObjectChunk();
 				break;
 			case chunk_material:
-            std::cout << "  ++ material" << std::endl;
+            //std::cout << "  ++ material" << std::endl;
 				readMaterialChunk();
             break;
 			default:
@@ -236,17 +236,17 @@ void Scene3DS::readMaterialChunk()
       
 		switch(id_chunk) {
 			case chunk_matname:
-            std::cout << "   ++ name: ";
+            //std::cout << "   ++ name: ";
 				// material.name = fileGetName();
-            std::cout << fileGetName() << std::endl;
+            //std::cout << fileGetName() << std::endl;
 				break;
 			case chunk_mattexture:
 				//material.texture1.fname = readTextureChunk();
-            std::cout << "    ++ texure1 filename:  " << readTextureChunk() << std::endl;
+            //std::cout << "    ++ texure1 filename:  " << readTextureChunk() << std::endl;
 				break;
 			case chunk_mattexture2:
 				//material.texture2.fname = readTextureChunk();
-            std::cout << "    ++ texure2 filename: " << readTextureChunk() << std::endl;
+            //std::cout << "    ++ texure2 filename: " << readTextureChunk() << std::endl;
 				break;
 			default:
 				int size_chunk = fileGetInt();
@@ -310,14 +310,14 @@ void Scene3DS::readObjectChunk()
 				// objects.push_back(object);
             // m_akObjects.addObject(object);
             addObject(object);
-            std::cout << "trimesh: " << str << std::endl;
+            //std::cout << "trimesh: " << str << std::endl;
 				readTrimeshChunk(object);
             object->init();
 				break;
 			case chunk_camera :
 				// camera.name = (char*)&str[0];
 				// cameras.push_back(camera);
-            std::cout << "camera: " << str << std::endl;
+            //std::cout << "camera: " << str << std::endl;
 				readCameraChunk();
 				break;
 			case chunk_light:
@@ -348,7 +348,7 @@ void Scene3DS::readTrimeshChunk(Object *object)
 			case chunk_vertexlist:
 				fileGetInt();
 				number_of_vertices = fileGetWord();
-            std::cout << "   ++ vertices: " << number_of_vertices << std::endl;
+            //std::cout << "   ++ vertices: " << number_of_vertices << std::endl;
 				// objects.back().number_of_vertices = number_of_vertices;
 				for (i=0; i<number_of_vertices; i++)
 				{
@@ -362,14 +362,14 @@ void Scene3DS::readTrimeshChunk(Object *object)
 					//v1.position.z = fileGetFloat();
 					//v1.position.y = fileGetFloat();
 					//objects.back().vertices.push_back(v1);
-               std::cout << "\t" << std::setiosflags(std::ios::fixed) << std::setprecision(4) << v1 << "\t" << v2 << "\t " << v3 << std::endl;
+               //std::cout << "\t" << std::setiosflags(std::ios::fixed) << std::setprecision(4) << v1 << "\t" << v2 << "\t " << v3 << std::endl;
 				}
 				break;
 			case chunk_facelist:
 				fileGetInt();
 				number_of_faces = fileGetWord();
 				//objects.back().number_of_faces = number_of_faces;
-            std::cout << "   ++ faces: " << number_of_faces << std::endl;
+            //std::cout << "   ++ faces: " << number_of_faces << std::endl;
 				for (i=0; i<number_of_faces; i++)
 				{
                GLuint f1 = fileGetWord();
@@ -383,13 +383,13 @@ void Scene3DS::readTrimeshChunk(Object *object)
 					//fc.f3 = fileGetWord();
 					//objects.back().faces.push_back(fc);
 					fileGetWord(); // additional flags
-               //// std::cout << "\t" << f1 << "\t" << f2 << "\t " << f3 << std::endl;
+               //// //std::cout << "\t" << f1 << "\t" << f2 << "\t " << f3 << std::endl;
 				}
 				break;
 			case chunk_maplist:
 				fileGetInt();
 				number_of_uv = fileGetWord();
-            std::cout << "   ++ mapping uv: " << number_of_uv << std::endl;
+            //std::cout << "   ++ mapping uv: " << number_of_uv << std::endl;
 				for (i=0; i<number_of_uv; i++)
 				{
 					// float uu = fileGetFloat();
@@ -397,12 +397,12 @@ void Scene3DS::readTrimeshChunk(Object *object)
 					
 					// objects.back().vertices[i].uv.x = uu;
 					// objects.back().vertices[i].uv.y = vv;
-               //// std::cout << "\t" << std::setiosflags(std::ios::fixed) << std::setprecision(4) << uu << "\t" << vv << std::endl;
+               //// //std::cout << "\t" << std::setiosflags(std::ios::fixed) << std::setprecision(4) << uu << "\t" << vv << std::endl;
 				}
 				break;
 			case chunk_matrix:
 				fileGetInt();
-            std::cout << "   ++ object matrix " << std::endl;
+            //std::cout << "   ++ object matrix " << std::endl;
 				// rotation
             m11 = fileGetFloat();
             m13 = fileGetFloat();
@@ -439,19 +439,19 @@ void Scene3DS::readTrimeshChunk(Object *object)
              objects.back().object_matrix._42 = fileGetFloat();
              objects.back().object_matrix._44 = 1.0f;
              */
-            std::cout << "      " << m11 << "  " << m12 << "  " << m13 << "  " << m14 << std::endl;
-            std::cout << "      " << m21 << "  " << m22 << "  " << m23 << "  " << m24 << std::endl;
-            std::cout << "      " << m31 << "  " << m32 << "  " << m33 << "  " << m34 << std::endl;
-            std::cout << "      " << m41 << "  " << m42 << "  " << m43 << "  " << m44 << std::endl;
+            //std::cout << "      " << m11 << "  " << m12 << "  " << m13 << "  " << m14 << std::endl;
+            //std::cout << "      " << m21 << "  " << m22 << "  " << m23 << "  " << m24 << std::endl;
+            //std::cout << "      " << m31 << "  " << m32 << "  " << m33 << "  " << m34 << std::endl;
+            //std::cout << "      " << m41 << "  " << m42 << "  " << m43 << "  " << m44 << std::endl;
 				break;
 			case chunk_facematerial:
 				fileGetInt();
 				str = fileGetObjectName();
-            std::cout << "   ++ face material applied: " << str << std::endl;
+            //std::cout << "   ++ face material applied: " << str << std::endl;
 				j = 0;
 				// while (materials[j].name != str) j++;
 				number_of_faces = fileGetWord();
-				std::cout << "    ++ on faces: " << number_of_faces << std::endl;
+				//std::cout << "    ++ on faces: " << number_of_faces << std::endl;
 				for (i=0; i<number_of_faces; i++) {
 					// read face number assigned to this material
 					k = fileGetWord();
@@ -492,11 +492,11 @@ void Scene3DS::readCameraChunk()
    float roll = fileGetFloat();
    float fov = fileGetFloat();
    
-   std::cout << "   ++ position: " << std::setiosflags(std::ios::fixed) << std::setprecision(4) << p1 << " " << p2 << " " << p3 << std::endl;
-   std::cout << "   ++ target: " << std::setiosflags(std::ios::fixed) << std::setprecision(4) << t1 << " " << t2 << " " << t3 << std::endl;
+   //std::cout << "   ++ position: " << std::setiosflags(std::ios::fixed) << std::setprecision(4) << p1 << " " << p2 << " " << p3 << std::endl;
+   //std::cout << "   ++ target: " << std::setiosflags(std::ios::fixed) << std::setprecision(4) << t1 << " " << t2 << " " << t3 << std::endl;
    
-   std::cout << "   ++ fov: " << fov << std::endl;
-   std::cout << "   ++ roll: " << roll << std::endl;
+   //std::cout << "   ++ fov: " << fov << std::endl;
+   //std::cout << "   ++ roll: " << roll << std::endl;
    
 	bool finished = false;
 	while(!finished) {
@@ -509,7 +509,7 @@ void Scene3DS::readCameraChunk()
 				//cameras.back().clip_far = fileGetFloat();
             p1 = fileGetFloat();
             p2 = fileGetFloat();
-            std::cout << "   ++ near and far clips: " << p1 << " " << p2 << std::endl;
+            //std::cout << "   ++ near and far clips: " << p1 << " " << p2 << std::endl;
 				break;
 			default:
 				int size_chunk = fileGetInt();

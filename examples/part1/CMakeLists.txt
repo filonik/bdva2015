@@ -46,7 +46,9 @@ SET(HEADER_FILES
     src/demo01.h
     src/demo02.h
     src/demo03.h
+    src/demo04.h
     src/glsl-program.h
+    src/mcpp.h
     src/object.h
     src/scene.h
     src/scene-3ds.h

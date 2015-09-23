@@ -8,8 +8,8 @@
 
 //#include "demo01.h"
 //#include "demo02.h"
- #include "demo03.h"
-
+//#include "demo03.h"
+#include "demo04.h"
 
 void displayOpenGLInfo()
 {

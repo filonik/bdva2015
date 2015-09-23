@@ -5,6 +5,22 @@ using std::ifstream;
 #include <sstream>
 #include <iostream>
 
+namespace detail {
+inline GLSLProgram::GLSLShaderType getTypeFromPath(const std::string& path)
+{
+	static std::map<std::string, GLSLProgram::GLSLShaderType> extensionToType = {
+		{ ".cs", GLSLProgram::COMPUTE }, { ".comp", GLSLProgram::COMPUTE },
+		{ ".vs", GLSLProgram::VERTEX }, { ".vert", GLSLProgram::VERTEX },
+		{ ".tcs", GLSLProgram::TESS_CONTROL }, { ".tesc", GLSLProgram::TESS_CONTROL },
+		{ ".tes", GLSLProgram::TESS_EVALUATION }, { ".tese", GLSLProgram::TESS_EVALUATION },
+		{ ".gs", GLSLProgram::GEOMETRY }, { ".geom", GLSLProgram::GEOMETRY },
+		{ ".fs", GLSLProgram::FRAGMENT }, { ".frag", GLSLProgram::FRAGMENT },
+	};
+	auto index = path.find_last_of(".");
+	auto extension = path.substr(index, path.length() - index);
+	return extensionToType[extension];
+}
+}
 
 GLSLProgram::GLSLProgram() :
    m_uiHandle(0),
@@ -105,9 +121,7 @@ void GLSLProgram::compileShader(
 }
 
 
-void GLSLProgram::compileShaderFromFile(
-   const std::string &fileName,
-   GLSLProgram::GLSLShaderType type)
+void GLSLProgram::compileShaderFromFile(const std::string &fileName, GLSLProgram::GLSLShaderType type)
    throw (GLSLProgramException)
 {
    ifstream inFile(fileName, std::ios::in);
@@ -122,6 +136,19 @@ void GLSLProgram::compileShaderFromFile(
    inFile.close();
    
    compileShader(code.str(), type);
+}
+
+void GLSLProgram::compileShaderFromPath(const std::string& path, const std::vector<std::string>& arguments)
+{
+	auto type = detail::getTypeFromPath(path);
+
+	std::string out, err;
+	std::tie(out, err) = mcpp::process(path, arguments);
+
+	//std::cout << out << std::endl;
+	//std::cout << err << std::endl;
+
+	compileShader(out, type);
 }
 
 
