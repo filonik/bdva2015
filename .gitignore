@@ -1,7 +1,7 @@
 .DS_Store
-*/bin
-*/lib
-*/build*
+/examples/*/bin
+/examples/*/lib
+/examples/*/build*
 
 # Object files
 *.o
