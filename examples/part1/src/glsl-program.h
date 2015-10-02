@@ -44,20 +44,17 @@ public:
    
    void compileShader(
       const std::string &source,
-      GLSLProgram::GLSLShaderType type)
-      throw (GLSLProgramException);
+      GLSLProgram::GLSLShaderType type);
    
    void compileShaderFromFile(
       const std::string &fileName,
-      GLSLProgram::GLSLShaderType type)
-      throw (GLSLProgramException);
+      GLSLProgram::GLSLShaderType type);
 
    void compileShaderFromPath(
 	   const std::string& path,
 	   const std::vector<std::string>& arguments = {});
    
-   void link()
-      throw (GLSLProgramException);
+   void link();
    
    void use();
    void unUse();

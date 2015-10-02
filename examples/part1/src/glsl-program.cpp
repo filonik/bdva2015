@@ -67,10 +67,7 @@ bool GLSLProgram::isBound()
 }
 
 
-void GLSLProgram::compileShader(
-   const std::string &source,
-   GLSLProgram::GLSLShaderType type)
-   throw (GLSLProgramException)
+void GLSLProgram::compileShader(const std::string &source, GLSLProgram::GLSLShaderType type)
 {
    if (m_uiHandle == 0)
    {
@@ -122,7 +119,6 @@ void GLSLProgram::compileShader(
 
 
 void GLSLProgram::compileShaderFromFile(const std::string &fileName, GLSLProgram::GLSLShaderType type)
-   throw (GLSLProgramException)
 {
    ifstream inFile(fileName, std::ios::in);
    if (!inFile)
@@ -153,7 +149,6 @@ void GLSLProgram::compileShaderFromPath(const std::string& path, const std::vect
 
 
 void GLSLProgram::link()
-   throw (GLSLProgramException)
 {
    if (m_bLinked) return;
    
