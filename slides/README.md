@@ -10,7 +10,7 @@ This part of the workshop covers the newer programmable stages in the OpenGL pip
 
 The last part of the workshop introduces WebGL from a ground-up approach. WebGL is a browser-implemented platform against the OpenGL ES 2.0 standard, bringing in a whole new level of accessibility of 2D and 3D computer graphics on the web. We will show the current state of WebGL support (nearly 90%), go through bare-bone examples of how to use WebGL using a popular library called ThreeJS, and showcase real-world applications using WebGL today.
 
-You can access a WebGL-ready ThreeJS skeleton here: https://github.com/filonik/bdva2015/blob/master/examples/part3/webgl_shader.html
+You can access a WebGL-ready ThreeJS skeleton here: http://spaxe.github.io/webgl-workshop/index.html
 
 ## Contributors
 

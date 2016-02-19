@@ -3,7 +3,7 @@ In modern data science, accelerated visualisation techniques are required to exp
 
 Slides for the talks are here: https://github.com/filonik/bdva2015/tree/master/slides
 
-WebGL slides are availale as a webpage: https://filonik.github.io/bdva2015/slides/webgl
+WebGL slides are availale as a webpage: http://spaxe.github.io/webgl-workshop/index.html
 
 Tomasz Bednarz (QUT)
 Daniel Filonk (QUT)
